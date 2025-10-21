@@ -9,10 +9,11 @@ sealed class CalculatorEvent {
 
 }
 
-sealed class CalculatorOperation(val sysmbole: String) {
+sealed class CalculatorOperation(val operator : String) {
     object Add : CalculatorOperation("+")
     object Subtract : CalculatorOperation("-")
-    object Multiply : CalculatorOperation("x")
+    object Multiply : CalculatorOperation("*")
+
     object Divide : CalculatorOperation("/")
 
 }
