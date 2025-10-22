@@ -1,7 +1,6 @@
 package com.example.calculator
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -18,9 +17,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.ModifierLocalReadScope
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.example.calculator.component.ButtonsGrid
 import com.example.calculator.domain.NumberViewModel
 import com.example.calculator.ui.theme.CalculatorTheme
 
@@ -43,27 +42,17 @@ fun Calculator(viewModel: NumberViewModel ) {
     val onEvent = viewModel::onEvent
     Scaffold { innerPadding ->
 
-        Column {
-            Text(text = "$state",modifier = Modifier.padding(innerPadding))
+        Text(text = "$state")
 
-            Buttons(
-                onClick = {
-                    onEvent(CalculatorEvent.Number(1.toString()))
-                    Log.d("PlusOperator" , state.toString())
-                          },
-                sysmbol = "1",
-                modifier = Modifier
-            )
-            Log.d("state" , state.toString())
-            Buttons(
-                onClick = {onEvent(CalculatorEvent.Operation(CalculatorOperation.Add))},
-                sysmbol = "+",
-                modifier = Modifier
-            )
-            Buttons(
-                onClick = { onEvent(CalculatorEvent.Calculate) },
-                sysmbol = "=",
-                modifier = Modifier
+        Column (modifier = Modifier.padding(innerPadding)) {
+            ButtonsGrid(
+                modifier = Modifier,
+                onNumberClick = { number ->
+                    onEvent(CalculatorEvent.Number(number))
+                },
+                onOperationClick = { operation ->
+                    onEvent(CalculatorEvent.Operation(operation))
+                },
             )
         }
 
