@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.example.calculator.component.ButtonsGrid
 import com.example.calculator.domain.NumberViewModel
@@ -30,7 +32,7 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun CalculatorScreen(viewModel: NumberViewModel) {
-        val state by viewModel::state
+        val state by viewModel.state.collectAsState()
         val onEvent = viewModel::onEvent
         Scaffold() { innerPadding ->
 

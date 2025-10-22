@@ -8,14 +8,20 @@ import androidx.lifecycle.ViewModel
 import com.example.calculator.CalculatorEvent
 import com.example.calculator.CalculatorOperation
 import com.example.calculator.HomeScreen.CalculatorState
+import com.example.calculator.ui.theme.CalculatorTheme
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 class NumberViewModel : ViewModel() {
-    var state by mutableStateOf(CalculatorState())
-        private set
+    private val _state = MutableStateFlow(CalculatorState())
+    val state : StateFlow<CalculatorState> = _state.asStateFlow()
+
 
     fun onEvent(event: CalculatorEvent) {
         when (event) {
-            is CalculatorEvent.Calculate -> determineResult()
+            is CalculatorEvent.Calculate -> TODO()
             is CalculatorEvent.Decimal -> TODO()
             is CalculatorEvent.Delete -> TODO()
             is CalculatorEvent.Number -> {
@@ -32,51 +38,30 @@ class NumberViewModel : ViewModel() {
     }
 
     private fun enterNum(number: String) {
-        if (state.operation == null) {
-            state = state.copy(
-                number1 = state.number1 + number
-            )
-        } else {
-            state = state.copy(
-                number2 = state.number2 + number
-            )
+        _state.update { currentState ->
+            if (currentState.operation == null){
+                currentState.copy(
+                    number1 = currentState.number1 + number
+                )
+            }else {
+                currentState.copy(
+                    number2 = currentState.number2 + number
+                )
+            }
+
         }
     }
 
 
     fun enterOperator(symbol: CalculatorOperation) {
-        state = state.copy(operation = symbol)
-    }
-
-    fun determineResult() {
-        val number1 = state.number1.toDoubleOrNull() ?: return
-        val number2 = state.number2.toDoubleOrNull() ?: return
-        val operation = state.operation ?: return
-
-        val result = when (operation) {
-            CalculatorOperation.Add -> number1 + number2
-            CalculatorOperation.Subtract -> number1 - number2
-            CalculatorOperation.Multiply -> number1 * number2
-            CalculatorOperation.Divide -> {
-                if (number2 == 0.0) {
-                    state = state.copy(
-                        result = "Error: Division by zero",
-                        number1 = "",
-                        number2 = "",
-                        operation = null
-                    )
-                    return
-                }
-                number1 / number2
+        _state.update { currentState ->
+            if (currentState.number1.isNotBlank()){
+                currentState.copy(operation = symbol)
+            }else {
+                currentState
             }
-        }
 
-        state = state.copy(
-            result = result.toString(),
-            number1 = result.toString(),
-            number2 = "",
-            operation = null
-        )
+        }
     }
 
 }
