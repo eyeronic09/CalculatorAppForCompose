@@ -1,101 +1,79 @@
 package com.example.calculator.component
 
-import androidx.compose.foundation.layout.fillMaxSize
+import android.R
+import android.util.Log
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.calculator.Buttons
-import com.example.calculator.Calculator
+import com.example.calculator.CalculatorEvent
 import com.example.calculator.CalculatorOperation
 
 @Composable
 fun ButtonsGrid(
-    modifier: Modifier = Modifier,
-    onNumberClick :(String) -> Unit,
-    onOperationClick:(CalculatorOperation)  -> Unit
+    onNumberClick: (String) -> Unit,
+    onOperationClick: (CalculatorOperation) -> Unit,
+    onEqualTo:(CalculatorEvent.Calculate) -> Unit
 ) {
     val buttons = listOf(
         "7", "8", "9", "/",
         "4", "5", "6", "*",
-        "1", "2", "3", "-",
+        "1", "2", "3", "-","+",
         "0", ".", "=", "⌫"
     )
 
-
     LazyVerticalGrid(
-        modifier = modifier.fillMaxSize(),
         columns = GridCells.Fixed(4),
     ) {
-
-        items(buttons) { it ->
-            when (it) {
-                "+" -> Buttons(
+        items(buttons) { button ->
+            when (button) {
+                "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" -> {
+                    CircularButton(
+                        onClick = { onNumberClick(button)
+                                  Log.d("NumButtom" , button)},
+                        symbol = button,
+                        modifier = Modifier
+                    )
+                }
+                "+" -> CircularButton(
                     onClick = { onOperationClick(CalculatorOperation.Add) },
-                    sysmbol = "+",
+                    symbol = "+",
                     modifier = Modifier
                 )
-
-                "*" -> Buttons(
+                "*" -> CircularButton(
                     onClick = { onOperationClick(CalculatorOperation.Multiply) },
-                    sysmbol = "*",
+                    symbol = "*",
                     modifier = Modifier
                 )
-
-                "-" -> Buttons(
+                "-" -> CircularButton(
                     onClick = { onOperationClick(CalculatorOperation.Subtract) },
-                    sysmbol = "-",
+                    symbol = "-",
                     modifier = Modifier
                 )
-
-                "/" -> Buttons(
+                "/" -> CircularButton(
                     onClick = { onOperationClick(CalculatorOperation.Divide) },
-                    sysmbol = "/",
+                    symbol = "/",
+                    modifier = Modifier
+                )
+                "=" -> CircularButton(
+                    onClick = { onEqualTo },
+                    symbol = "=",
+                    modifier = Modifier
+                )
+                "⌫" -> CircularButton(
+                    onClick = { /* Handle backspace */ },
+                    symbol = "⌫",
+                    modifier = Modifier
+                )
+                "." -> CircularButton(
+                    onClick = {  },
+                    symbol = ".",
                     modifier = Modifier
                 )
 
-                "0" -> Buttons(
-                    onClick = { onNumberClick("0") },
-                    sysmbol = "0",
-                    modifier = Modifier
-                )
 
-                "." -> Buttons(
-                    onClick = { onNumberClick(".") },
-                    sysmbol = ".",
-                    modifier = Modifier
-                )
-
-                "=" -> Buttons(
-                    onClick = { onNumberClick("=") },
-                    sysmbol = "=",
-                    modifier = Modifier
-                )
-
-                "⌫" -> Buttons(
-                    onClick = { onNumberClick("⌫") },
-                    sysmbol = "⌫",
-                    modifier = Modifier
-                )
-
-                else -> Buttons(
-                    onClick = { onNumberClick(it) },
-                    sysmbol = it,
-                    modifier = Modifier
-                )
             }
         }
     }
-
-}
-@Preview
-@Composable
-private fun ors() {
-    ButtonsGrid(
-        modifier = Modifier,
-        onNumberClick = {},
-        onOperationClick = {}
-    )
 }
