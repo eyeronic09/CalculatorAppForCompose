@@ -57,7 +57,7 @@ fun ButtonsGrid(
                     modifier = Modifier
                 )
                 "=" -> CircularButton(
-                    onClick = { onEqualTo.invoke(CalculatorEvent.Calculate)},
+                    onClick = { onEqualTo(CalculatorEvent.Calculate)},
                     symbol = "=",
                     modifier = Modifier
                 )
