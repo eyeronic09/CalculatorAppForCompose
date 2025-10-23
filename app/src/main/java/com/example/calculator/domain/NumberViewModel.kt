@@ -21,7 +21,7 @@ class NumberViewModel : ViewModel() {
 
     fun onEvent(event: CalculatorEvent) {
         when (event) {
-            is CalculatorEvent.Calculate -> TODO()
+            is CalculatorEvent.Calculate -> determineResult()
             is CalculatorEvent.Decimal -> TODO()
             is CalculatorEvent.Delete -> TODO()
             is CalculatorEvent.Number -> {
@@ -39,6 +39,7 @@ class NumberViewModel : ViewModel() {
 
     private fun enterNum(number: String) {
         _state.update { currentState ->
+            Log.d("currentState" , currentState.toString())
             if (currentState.operation == null){
                 currentState.copy(
                     number1 = currentState.number1 + number
@@ -50,6 +51,26 @@ class NumberViewModel : ViewModel() {
             }
 
         }
+    }
+
+    private fun determineResult(){
+        val number1 = _state.value.number1.toDoubleOrNull() ?: 0.0
+        val number2 = _state.value.number2.toDoubleOrNull() ?: 0.0
+        val result =  when(_state.value.operation){
+            is CalculatorOperation.Add -> {
+                number1 + number2
+            }
+
+            else -> {
+                null
+            }
+        }
+        _state.update { calculatorState ->
+            calculatorState.copy(result = result.toString())
+        }
+
+
+
     }
 
 
