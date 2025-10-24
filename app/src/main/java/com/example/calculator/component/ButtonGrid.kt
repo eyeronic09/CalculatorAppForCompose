@@ -1,12 +1,13 @@
 package com.example.calculator.component
 
-import android.R
 import android.util.Log
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.calculator.CalculatorEvent
 import com.example.calculator.CalculatorOperation
 
@@ -14,16 +15,18 @@ import com.example.calculator.CalculatorOperation
 fun ButtonsGrid(
     onNumberClick: (String) -> Unit,
     onOperationClick: (CalculatorOperation) -> Unit,
-    onEqualTo:(CalculatorEvent.Calculate) -> Unit
+    onEqualTo: (CalculatorEvent.Calculate) -> Unit,
+    onClear: (CalculatorEvent.Delete) -> Unit
 ) {
     val buttons = listOf(
         "7", "8", "9", "/",
         "4", "5", "6", "*",
         "1", "2", "3", "-","+",
-        "0", ".", "=", "⌫"
+        "0", ".", "=", "CE"
     )
 
     LazyVerticalGrid(
+
         columns = GridCells.Fixed(4),
     ) {
         items(buttons) { button ->
@@ -61,9 +64,9 @@ fun ButtonsGrid(
                     symbol = "=",
                     modifier = Modifier
                 )
-                "⌫" -> CircularButton(
-                    onClick = { /* Handle backspace */ },
-                    symbol = "⌫",
+                "CE" -> CircularButton(
+                    onClick = { onClear(CalculatorEvent.Delete) },
+                    symbol = "CE",
                     modifier = Modifier
                 )
                 "." -> CircularButton(
@@ -76,4 +79,16 @@ fun ButtonsGrid(
             }
         }
     }
+}
+
+@Preview(showSystemUi = true)
+@Composable
+private fun pea() {
+    ButtonsGrid(
+        onNumberClick = {},
+        onOperationClick = {},
+        onEqualTo = {},
+        onClear = {},
+    )
+
 }

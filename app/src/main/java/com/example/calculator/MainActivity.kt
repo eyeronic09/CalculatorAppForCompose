@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import com.example.calculator.HomeScreen.CalculatorView
 import com.example.calculator.component.ButtonsGrid
 import com.example.calculator.domain.NumberViewModel
 
@@ -25,33 +26,8 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             val viewModel = NumberViewModel()
-            CalculatorScreen(viewModel)
-
-        }
-    }
-
-    @Composable
-    fun CalculatorScreen(viewModel: NumberViewModel) {
-        val state by viewModel.state.collectAsState()
-        val onEvent = viewModel::onEvent
-        Scaffold() { innerPadding ->
-
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
-                verticalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text("${state}")
-                ButtonsGrid(
-                    onNumberClick = {it -> onEvent(CalculatorEvent.Number(number = it)) },
-                    onOperationClick = { operation -> onEvent(CalculatorEvent.Operation(operation)) },
-                    onEqualTo = {onEvent(CalculatorEvent.Calculate)},
-                )
-            }
-            Log.d("state",state.toString())
+            CalculatorView(viewModel)
 
         }
     }
 }
-

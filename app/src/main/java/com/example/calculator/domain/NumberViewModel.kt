@@ -23,7 +23,9 @@ class NumberViewModel : ViewModel() {
         when (event) {
             is CalculatorEvent.Calculate -> determineResult()
             is CalculatorEvent.Decimal -> TODO()
-            is CalculatorEvent.Delete -> TODO()
+            is CalculatorEvent.Delete -> {
+                clearState()
+            }
             is CalculatorEvent.Number -> {
                 enterNum(event.number)
             }
@@ -34,6 +36,18 @@ class NumberViewModel : ViewModel() {
 
         }
 
+
+    }
+
+    private fun clearState()  {
+        _state.update { it ->
+            it.copy(
+                number1 = "",
+                number2 = "",
+                result = "",
+                operation = null
+            )
+        }
 
     }
 
@@ -60,16 +74,27 @@ class NumberViewModel : ViewModel() {
             is CalculatorOperation.Add -> {
                 number1 + number2
             }
-
-            else -> {
-                null
+            is CalculatorOperation.Divide -> {
+                if (number2 == 0.0) {
+                    null
+                } else {
+                    number1 / number2
+                }
             }
+            is CalculatorOperation.Multiply -> {
+                number1 * number2
+            }
+            is CalculatorOperation.Subtract -> {
+                number1 - number2
+            }
+            null -> null
         }
         _state.update { calculatorState ->
-            calculatorState.copy(result = result.toString())
+            calculatorState.copy(
+                result = result.toString()
+            )
+
         }
-
-
 
     }
 
