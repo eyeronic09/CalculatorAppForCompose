@@ -47,7 +47,9 @@ class NumberViewModel : ViewModel() {
                 number1 = "",
                 number2 = "",
                 result = "",
-                operation = null
+                operation = null,
+                expression = ""
+
             )
         }
 
@@ -103,10 +105,9 @@ class NumberViewModel : ViewModel() {
         }
         _state.update { calculatorState ->
             calculatorState.copy(
-                number1 = result.toString(),
-                number2 = "",
                 result = result.toString(),
-                expression = ""
+                number1 = result.toString(),
+                number2 = ""
             )
 
         }
@@ -116,10 +117,17 @@ class NumberViewModel : ViewModel() {
 
     fun enterOperator(symbol: CalculatorOperation) {
         _state.update { calculatorState ->
-            calculatorState.copy(
-                expression = calculatorState.expression + symbol.operator,
-                operation = symbol
-            )
+            val takeTheLastDigit = calculatorState.expression.lastOrNull()
+            val endsWithNumber = takeTheLastDigit?.isDigit() == true
+            if (endsWithNumber){
+                calculatorState.copy(
+                    expression = calculatorState.expression + symbol.operator,
+                    operation = symbol
+                )
+            }else {
+               calculatorState
+            }
+
         }.also {
             Log.d("current", _state.value.toString())
         }
