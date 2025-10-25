@@ -30,27 +30,10 @@ fun CalculatorView(
     val onEvent = viewModel::onEvent
     Column (modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Bottom){
-        Text(
-            text = buildString {
-                append(state.number1)
-                append(
-                    when (state.operation) {
-                        CalculatorOperation.Add -> " + "
-                        CalculatorOperation.Divide -> " ÷ "
-                        CalculatorOperation.Multiply -> " × "
-                        CalculatorOperation.Subtract -> " - "
-                        null -> ""
-                    }
-                )
-                append(state.number2.ifBlank { "" } )
 
 
-            }
-
-        )
-        Text(text ="${state.result}")
-
-
+        Text(text = state.expression)
+        Text(text = state.result)
 
 
         ButtonsGrid(onNumberClick = { onEvent(CalculatorEvent.Number(number = it))},

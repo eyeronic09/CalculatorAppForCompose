@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.example.calculator.CalculatorEvent
 import com.example.calculator.CalculatorOperation
 import com.example.calculator.HomeScreen.CalculatorState
+import com.example.calculator.HomeScreen.previs
 import com.example.calculator.ui.theme.CalculatorTheme
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,7 +17,7 @@ import kotlinx.coroutines.flow.update
 
 class NumberViewModel : ViewModel() {
     private val _state = MutableStateFlow(CalculatorState())
-    val state : StateFlow<CalculatorState> = _state.asStateFlow()
+    val state: StateFlow<CalculatorState> = _state.asStateFlow()
 
 
     fun onEvent(event: CalculatorEvent) {
@@ -26,6 +27,7 @@ class NumberViewModel : ViewModel() {
             is CalculatorEvent.Delete -> {
                 clearState()
             }
+
             is CalculatorEvent.Number -> {
                 enterNum(event.number)
             }
@@ -39,7 +41,7 @@ class NumberViewModel : ViewModel() {
 
     }
 
-    private fun clearState()  {
+    private fun clearState() {
         _state.update { it ->
             it.copy(
                 number1 = "",
@@ -51,29 +53,36 @@ class NumberViewModel : ViewModel() {
 
     }
 
+
     private fun enterNum(number: String) {
         _state.update { currentState ->
-            Log.d("currentState" , currentState.toString())
-            if (currentState.operation == null){
+            if (currentState.operation == null) {
                 currentState.copy(
-                    number1 = currentState.number1 + number
+                    number1 = currentState.number1 + number,
+                    expression = currentState.expression + number
+
                 )
-            }else {
+            } else {
                 currentState.copy(
-                    number2 = currentState.number2 + number
+                    number2 = currentState.number2 + number,
+                    expression = currentState.expression + number
+
                 )
             }
 
         }
     }
 
-    private fun determineResult(){
+    private fun determineResult() {
         val number1 = _state.value.number1.toDoubleOrNull() ?: 0.0
         val number2 = _state.value.number2.toDoubleOrNull() ?: 0.0
-        val result =  when(_state.value.operation){
+        val result = when (_state.value.operation) {
             is CalculatorOperation.Add -> {
                 number1 + number2
+
+
             }
+
             is CalculatorOperation.Divide -> {
                 if (number2 == 0.0) {
                     null
@@ -81,17 +90,23 @@ class NumberViewModel : ViewModel() {
                     number1 / number2
                 }
             }
+
             is CalculatorOperation.Multiply -> {
                 number1 * number2
             }
+
             is CalculatorOperation.Subtract -> {
                 number1 - number2
             }
+
             null -> null
         }
         _state.update { calculatorState ->
             calculatorState.copy(
-                result = result.toString()
+                number1 = result.toString(),
+                number2 = "",
+                result = result.toString(),
+                expression = ""
             )
 
         }
@@ -100,14 +115,13 @@ class NumberViewModel : ViewModel() {
 
 
     fun enterOperator(symbol: CalculatorOperation) {
-        _state.update { currentState ->
-            if (currentState.number1.isNotBlank()){
-                currentState.copy(operation = symbol)
-            }else {
-                currentState
-            }
-
+        _state.update { calculatorState ->
+            calculatorState.copy(
+                expression = calculatorState.expression + symbol.operator,
+                operation = symbol
+            )
+        }.also {
+            Log.d("current", _state.value.toString())
         }
     }
-
 }
