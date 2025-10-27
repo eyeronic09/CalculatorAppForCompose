@@ -1,5 +1,6 @@
 package com.example.calculator.HomeScreen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import com.example.calculator.CalculatorEvent
 import com.example.calculator.CalculatorOperation
 import com.example.calculator.component.ButtonsGrid
+import com.example.calculator.component.DisplayResult
 import com.example.calculator.domain.NumberViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,15 +30,13 @@ fun CalculatorView(
 ) {
     val state: CalculatorState by viewModel.state.collectAsState()
     val onEvent = viewModel::onEvent
-    Column (modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Bottom){
+    Column (modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
+        verticalArrangement = Arrangement.SpaceBetween){
 
+        DisplayResult(state)
 
-        Text(text = state.expression)
-        Text(text = state.result)
-
-
-        ButtonsGrid(onNumberClick = { onEvent(CalculatorEvent.Number(number = it))},
+        ButtonsGrid(
+            onNumberClick = { onEvent(CalculatorEvent.Number(number = it))},
             onOperationClick = { onEvent(CalculatorEvent.Operation(it )) },
             onEqualTo = { onEvent(CalculatorEvent.Calculate) },
             onClear = {onEvent(CalculatorEvent.Delete)},

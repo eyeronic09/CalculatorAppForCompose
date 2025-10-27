@@ -1,12 +1,20 @@
 package com.example.calculator.component
 
 import android.util.Log
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.calculator.CalculatorEvent
 import com.example.calculator.CalculatorOperation
@@ -25,60 +33,67 @@ fun ButtonsGrid(
         "0", ".", "=", "CE"
     )
 
-    LazyVerticalGrid(
-
-        columns = GridCells.Fixed(4),
-    ) {
-        items(buttons) { button ->
-            when (button) {
-                "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" -> {
-                    CircularButton(
-                        onClick = { onNumberClick(button)
-                                  Log.d("NumButtom" , button)},
-                        symbol = button,
+    Box(modifier = Modifier.fillMaxSize().background(
+        MaterialTheme.colorScheme.background
+    ), contentAlignment = Alignment.BottomEnd){
+        LazyVerticalGrid(
+            modifier = Modifier.fillMaxWidth()
+                .wrapContentHeight(),
+            columns = GridCells.Fixed(4),
+        ) {
+            items(buttons) { button ->
+                when (button) {
+                    "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" -> {
+                        CircularButton(
+                            onClick = { onNumberClick(button)
+                                Log.d("NumButtom" , button)},
+                            symbol = button,
+                            modifier = Modifier
+                        )
+                    }
+                    "+" -> CircularButton(
+                        onClick = { onOperationClick(CalculatorOperation.Add) },
+                        symbol = "+",
                         modifier = Modifier
                     )
+                    "*" -> CircularButton(
+                        onClick = { onOperationClick(CalculatorOperation.Multiply) },
+                        symbol = "*",
+                        modifier = Modifier
+                    )
+                    "-" -> CircularButton(
+                        onClick = { onOperationClick(CalculatorOperation.Subtract) },
+                        symbol = "-",
+                        modifier = Modifier
+                    )
+                    "/" -> CircularButton(
+                        onClick = { onOperationClick(CalculatorOperation.Divide) },
+                        symbol = "/",
+                        modifier = Modifier
+                    )
+                    "=" -> CircularButton(
+                        onClick = { onEqualTo.invoke(CalculatorEvent.Calculate)},
+                        symbol = "=",
+                        modifier = Modifier
+                    )
+                    "CE" -> CircularButton(
+                        onClick = { onClear(CalculatorEvent.Delete) },
+                        symbol = "CE",
+                        modifier = Modifier
+                    )
+                    "." -> CircularButton(
+                        onClick = {  },
+                        symbol = ".",
+                        modifier = Modifier
+                    )
+
+
                 }
-                "+" -> CircularButton(
-                    onClick = { onOperationClick(CalculatorOperation.Add) },
-                    symbol = "+",
-                    modifier = Modifier
-                )
-                "*" -> CircularButton(
-                    onClick = { onOperationClick(CalculatorOperation.Multiply) },
-                    symbol = "*",
-                    modifier = Modifier
-                )
-                "-" -> CircularButton(
-                    onClick = { onOperationClick(CalculatorOperation.Subtract) },
-                    symbol = "-",
-                    modifier = Modifier
-                )
-                "/" -> CircularButton(
-                    onClick = { onOperationClick(CalculatorOperation.Divide) },
-                    symbol = "/",
-                    modifier = Modifier
-                )
-                "=" -> CircularButton(
-                    onClick = { onEqualTo.invoke(CalculatorEvent.Calculate)},
-                    symbol = "=",
-                    modifier = Modifier
-                )
-                "CE" -> CircularButton(
-                    onClick = { onClear(CalculatorEvent.Delete) },
-                    symbol = "CE",
-                    modifier = Modifier
-                )
-                "." -> CircularButton(
-                    onClick = {  },
-                    symbol = ".",
-                    modifier = Modifier
-                )
-
-
             }
         }
     }
+
+
 }
 
 @Preview(showSystemUi = true)

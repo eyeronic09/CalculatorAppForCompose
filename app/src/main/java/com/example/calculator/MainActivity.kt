@@ -18,15 +18,17 @@ import androidx.compose.ui.Modifier
 import com.example.calculator.HomeScreen.CalculatorView
 import com.example.calculator.component.ButtonsGrid
 import com.example.calculator.domain.NumberViewModel
+import com.example.calculator.ui.theme.CalculatorTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-
-            val viewModel = NumberViewModel()
-            CalculatorView(viewModel)
+            CalculatorTheme {
+                val viewModel = NumberViewModel()
+                CalculatorView(viewModel)
+            }
 
         }
     }
