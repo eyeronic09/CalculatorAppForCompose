@@ -8,7 +8,5 @@ data class CalculatorState(
     val number2: String = "",
     val result: String ="",
     val expression: String = "" ,
-  //  var expression: MutableList<String> = mutableListOf<String>(),
-
     val operation: CalculatorOperation? = null
 )

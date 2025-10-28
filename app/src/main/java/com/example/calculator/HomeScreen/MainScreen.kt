@@ -1,8 +1,10 @@
 package com.example.calculator.HomeScreen
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -30,8 +32,13 @@ fun CalculatorView(
 ) {
     val state: CalculatorState by viewModel.state.collectAsState()
     val onEvent = viewModel::onEvent
-    Column (modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
-        verticalArrangement = Arrangement.SpaceBetween){
+    Column (
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+            .padding(bottom = 16.dp),
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
 
         DisplayResult(state)
 
@@ -47,7 +54,11 @@ fun CalculatorView(
 
 }
 
-@Preview(showSystemUi = true)
+@Preview(
+    showSystemUi = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+
 @Composable
 fun previs() {
     CalculatorView(viewModel = NumberViewModel())

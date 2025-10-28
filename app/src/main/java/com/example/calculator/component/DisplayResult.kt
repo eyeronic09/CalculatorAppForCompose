@@ -14,6 +14,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.internal.composableLambdaInstance
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,26 +27,26 @@ import com.example.calculator.ui.theme.CalculatorTheme
 @Composable
 fun DisplayResult(state: CalculatorState) {
    CalculatorTheme {
-       Box(modifier = Modifier.fillMaxWidth().systemBarsPadding().background(
-           MaterialTheme.colorScheme.background
-       )){
+       Surface(
+           modifier = Modifier.fillMaxWidth().systemBarsPadding(),
+           color = MaterialTheme.colorScheme.background
+       ) {
            Column (modifier = Modifier.fillMaxWidth(1f)){
                Text(
                    modifier = Modifier.fillMaxWidth(),
-                   text = state.expression ,
+                   text = state.expression,
                    style = MaterialTheme.typography.displayMedium,
-                   color = Color.Red,
-                   textAlign = TextAlign.End)
-               Text( modifier = Modifier.fillMaxWidth(),
-                   text = state.result ,
+                   color = if (isSystemInDarkTheme()) Color.White else Color.Black,
+                   textAlign = TextAlign.End
+               )
+               Text(modifier = Modifier.fillMaxWidth(),
+                   text = state.result,
                    textAlign = TextAlign.End,
                    style = MaterialTheme.typography.labelMedium,
-                   color = Color.Green,)
+               )
            }
-
        }
    }
-
 }
 
 
