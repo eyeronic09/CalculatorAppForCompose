@@ -41,6 +41,8 @@ android {
 
 dependencies {
 
+    implementation("com.notkamui.libs:keval:1.1.1")
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
