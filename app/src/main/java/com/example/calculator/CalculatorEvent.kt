@@ -2,6 +2,8 @@ package com.example.calculator
 
 sealed class CalculatorEvent {
     data class Number(val number: String) : CalculatorEvent()
+
+    object droplast : CalculatorEvent()
     object Delete : CalculatorEvent()
     object Decimal : CalculatorEvent()
     object Calculate : CalculatorEvent()
