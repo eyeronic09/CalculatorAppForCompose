@@ -9,4 +9,8 @@ class RoomDataSources(private val dao : HistoryDao) : HistorySources {
        return dao.getAllHistory()
     }
 
+    override suspend fun insertExpression(expression: History) {
+        return dao.insterExperssion(expression)
+    }
+
 }

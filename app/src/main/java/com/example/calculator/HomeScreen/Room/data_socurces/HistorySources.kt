@@ -5,4 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface HistorySources {
     suspend fun getAllHistory() : Flow<List<History>>
+    suspend fun insertExpression(expression : History)
 }

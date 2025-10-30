@@ -9,4 +9,8 @@ class HistoryRepositoryImpl (private val dataSources: HistorySources ) : History
     override suspend fun getAllHistory(): Flow<List<History>> {
        return dataSources.getAllHistory()
     }
+
+    override suspend fun interExpression(expression: History) {
+        return dataSources.insertExpression(expression)
+    }
 }

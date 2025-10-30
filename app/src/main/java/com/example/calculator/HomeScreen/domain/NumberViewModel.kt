@@ -1,11 +1,16 @@
 package com.example.calculator.HomeScreen.domain
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.calculator.HomeScreen.Room.Model.History
 import com.example.calculator.HomeScreen.Room.Repository.HistoryRepository
 import com.notkamui.keval.Keval
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class NumberViewModel(
     private val repository: HistoryRepository
@@ -30,14 +35,29 @@ class NumberViewModel(
         }
     }
 
-    private fun calculate() {
+    private  fun calculate() {
         _state.update { current ->
             try {
-                val value = Keval.eval(current.expression)
-                current.copy(result = value.toString())
+                val value = Keval.eval(mathExpression = current.expression)
+                current.copy(result = value.toString()).also {
+                    viewModelScope.launch(context = Dispatchers.IO) {
+                        repository.interExpression(
+                            expression = History(
+                                expression = current.expression,
+                                result = value.toString()
+                            )
+                        )
+                        Log.d("ContactViewModel", "Database operation completed.")
+                    }
+
+                }
+
+
+
             } catch (e: Exception) {
                 current.copy(result = "Error")
             }
+
         }
     }
 
