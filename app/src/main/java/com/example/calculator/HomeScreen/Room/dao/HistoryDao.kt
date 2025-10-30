@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 interface HistoryDao {
 
 
-    @Query("SELECT * from history_table ")
+    @Query("SELECT * from History_table ")
     fun getAllHistory (): Flow<List<History>>
 
 

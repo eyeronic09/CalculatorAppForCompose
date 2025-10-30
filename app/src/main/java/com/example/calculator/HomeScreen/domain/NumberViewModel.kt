@@ -1,12 +1,15 @@
 package com.example.calculator.HomeScreen.domain
 
 import androidx.lifecycle.ViewModel
+import com.example.calculator.HomeScreen.Room.Repository.HistoryRepository
 import com.notkamui.keval.Keval
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
-class NumberViewModel : ViewModel() {
+class NumberViewModel(
+    private val repository: HistoryRepository
+) : ViewModel() {
     private val _state = MutableStateFlow(CalculatorState())
     val state: StateFlow<CalculatorState> = _state
 

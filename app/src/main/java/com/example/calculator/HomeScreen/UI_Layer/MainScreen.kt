@@ -15,11 +15,12 @@ import com.example.calculator.HomeScreen.component.ButtonsGrid
 import com.example.calculator.HomeScreen.component.DisplayResult
 import com.example.calculator.HomeScreen.domain.CalculatorState
 import com.example.calculator.HomeScreen.domain.NumberViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalculatorView(
-    viewModel: NumberViewModel,
+    viewModel: NumberViewModel = koinViewModel(),
 
 ) {
     val state: CalculatorState by viewModel.state.collectAsState()
@@ -45,14 +46,4 @@ fun CalculatorView(
     }
 
 
-}
-
-@Preview(
-    showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
-
-@Composable
-fun previs() {
-    CalculatorView(viewModel = NumberViewModel())
 }

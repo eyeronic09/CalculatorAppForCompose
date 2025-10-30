@@ -20,13 +20,13 @@ abstract class HistoryDataBase: RoomDatabase(){
         private var INSTANCES : HistoryDataBase? = null
         fun getDatabase(context: Context) : HistoryDataBase {
             return INSTANCES ?: synchronized(this){
-                val intances = Room.databaseBuilder(
+                val instances = Room.databaseBuilder(
                     context = context.applicationContext,
                     klass = HistoryDataBase::class.java,
                     name = "History_database"
                 ).build()
-                INSTANCES = intances
-                intances
+                INSTANCES = instances
+                instances
             }
         }
 
