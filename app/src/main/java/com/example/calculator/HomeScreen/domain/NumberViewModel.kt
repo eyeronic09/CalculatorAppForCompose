@@ -1,13 +1,9 @@
-package com.example.calculator.domain
+package com.example.calculator.HomeScreen.domain
 
 import androidx.lifecycle.ViewModel
-import com.example.calculator.CalculatorEvent
-import com.example.calculator.CalculatorOperation
-import com.example.calculator.HomeScreen.CalculatorState
 import com.notkamui.keval.Keval
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 class NumberViewModel : ViewModel() {

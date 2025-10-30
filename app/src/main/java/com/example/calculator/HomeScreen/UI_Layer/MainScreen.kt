@@ -1,28 +1,20 @@
-package com.example.calculator.HomeScreen
+package com.example.calculator.HomeScreen.UI_Layer
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.calculator.CalculatorEvent
-import com.example.calculator.CalculatorOperation
-import com.example.calculator.component.ButtonsGrid
-import com.example.calculator.component.DisplayResult
-import com.example.calculator.domain.NumberViewModel
+import com.example.calculator.HomeScreen.domain.CalculatorEvent
+import com.example.calculator.HomeScreen.component.ButtonsGrid
+import com.example.calculator.HomeScreen.component.DisplayResult
+import com.example.calculator.HomeScreen.domain.CalculatorState
+import com.example.calculator.HomeScreen.domain.NumberViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

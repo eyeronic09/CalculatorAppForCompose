@@ -1,7 +1,4 @@
-package com.example.calculator.HomeScreen
-
-import androidx.compose.runtime.mutableStateListOf
-import com.example.calculator.CalculatorOperation
+package com.example.calculator.HomeScreen.domain
 
 data class CalculatorState(
     val number1: String = "",

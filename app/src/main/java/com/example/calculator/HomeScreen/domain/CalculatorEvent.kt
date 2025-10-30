@@ -1,4 +1,4 @@
-package com.example.calculator
+package com.example.calculator.HomeScreen.domain
 
 sealed class CalculatorEvent {
     data class Number(val number: String) : CalculatorEvent()
