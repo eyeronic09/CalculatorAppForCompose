@@ -44,7 +44,7 @@ fun CalculatorView(
 
         ButtonsGrid(
             onNumberClick = { onEvent(CalculatorEvent.Number(number = it)) },
-            onOperationClick = { onEvent(CalculatorEvent.Operation(it)) },
+            onOperationClick = { onEvent(CalculatorEvent.Operation(operation = it)) },
             onEqualTo = { onEvent(CalculatorEvent.Calculate) },
             onClear = { onEvent(CalculatorEvent.Delete) },
             onDropLast = {onEvent(CalculatorEvent.droplast)},

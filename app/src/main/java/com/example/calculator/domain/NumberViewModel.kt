@@ -20,7 +20,7 @@ class NumberViewModel : ViewModel() {
             is CalculatorEvent.Operation -> append(event.operation.operator)
             is CalculatorEvent.Calculate -> calculate()
             is CalculatorEvent.Delete -> clear()
-            CalculatorEvent.droplast -> removeLast()
+            is CalculatorEvent.droplast -> removeLast()
             else -> Unit
         }
     }

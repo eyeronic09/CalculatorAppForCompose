@@ -123,7 +123,7 @@ fun ButtonsGrid(
                     )
 
                     "." -> CircularButton(
-                        onClick = { },
+                        onClick = {onNumberClick(button) },
                         symbol = ".",
                         modifier = Modifier.padding(8.dp)
                     )

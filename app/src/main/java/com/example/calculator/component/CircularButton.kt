@@ -34,7 +34,8 @@ fun CircularButton(
         Box {
             Text(text = symbol ,
                 style = MaterialTheme.typography.labelMedium,
-                maxLines = 1)
+                maxLines = 1
+            )
         }
     }
 }
