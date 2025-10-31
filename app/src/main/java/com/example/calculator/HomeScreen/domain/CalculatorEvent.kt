@@ -5,7 +5,7 @@ sealed class CalculatorEvent {
 
     object droplast : CalculatorEvent()
     object Delete : CalculatorEvent()
-    object Decimal : CalculatorEvent()
+
     object Calculate : CalculatorEvent()
     data class Operation(val operation: CalculatorOperation) : CalculatorEvent()
 

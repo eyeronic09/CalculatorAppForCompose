@@ -1,15 +1,19 @@
 package com.example.calculator
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.core.view.WindowCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.calculator.Core_NavScreen.Screen
+import com.example.calculator.HistoryScreen.Ui_Layer.HistoryScreen
 import com.example.calculator.HomeScreen.UI_Layer.CalculatorView
 import com.example.calculator.ui.theme.CalculatorTheme
 
@@ -17,7 +21,12 @@ import com.example.calculator.ui.theme.CalculatorTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+       enableEdgeToEdge(
+          statusBarStyle = SystemBarStyle.auto(
+              lightScrim = Color.TRANSPARENT,
+              darkScrim = Color.TRANSPARENT
+          )
+       )
         setContent {
             CalculatorTheme {
                 AppNavHost()
@@ -35,7 +44,12 @@ fun AppNavHost() {
         startDestination = Screen.Calculator_Screen.route
     ) {
         composable(Screen.Calculator_Screen.route){
-            CalculatorView()
+            CalculatorView(navController = navController)
+        }
+        composable (Screen.History_Screen.route) {
+            HistoryScreen(
+                navHost = navController
+            )
         }
     }
 
