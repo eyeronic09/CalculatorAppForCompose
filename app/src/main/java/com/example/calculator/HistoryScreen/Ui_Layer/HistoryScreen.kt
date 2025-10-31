@@ -12,13 +12,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.modifier.ModifierLocalReadScope
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.calculator.HistoryScreen.domain.HistoryViewModel
 import com.example.calculator.HomeScreen.Room.Model.History
 import com.example.calculator.HomeScreen.component.HistoryItem
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HistoryScreen(viewModel: HistoryViewModel = koinViewModel()) {
+fun HistoryScreen(viewModel: HistoryViewModel = koinViewModel(), navHost : NavHostController) {
     val state by viewModel.historyState.collectAsState()
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(items = state.historyList){ item ->
@@ -32,7 +35,8 @@ fun HistoryScreen(viewModel: HistoryViewModel = koinViewModel()) {
 @Preview(showSystemUi = true)
 @Composable
 private fun Pris() {
-    HistoryScreen()
+
+    HistoryScreen(navHost = rememberNavController())
 }
 
 
