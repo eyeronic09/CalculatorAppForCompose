@@ -1,6 +1,7 @@
 package com.example.calculator.DI
 
 import android.app.Application
+import com.example.calculator.HistoryScreen.domain.HistoryViewModel
 import com.example.calculator.HomeScreen.Room.Repository.HistoryRepository
 import com.example.calculator.HomeScreen.Room.Repository.HistoryRepositoryImpl
 import com.example.calculator.HomeScreen.Room.data_socurces.HistorySources
@@ -39,4 +40,8 @@ val appModule = module{
     viewModel {
         NumberViewModel(get())
     }
+    viewModel{
+        HistoryViewModel(get())
+    }
+
 }

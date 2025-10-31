@@ -21,15 +21,16 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun CalculatorView(
     viewModel: NumberViewModel = koinViewModel(),
-
+    paddingValues: PaddingValues
 ) {
+
     val state: CalculatorState by viewModel.state.collectAsState()
     val onEvent = viewModel::onEvent
     Column (
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .padding(bottom = 16.dp),
+            .padding(paddingValues),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
 
