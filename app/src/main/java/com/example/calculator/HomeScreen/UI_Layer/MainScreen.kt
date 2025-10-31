@@ -1,6 +1,5 @@
 package com.example.calculator.HomeScreen.UI_Layer
 
-import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.padding
@@ -8,8 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.calculator.HomeScreen.domain.CalculatorEvent
 import com.example.calculator.HomeScreen.component.ButtonsGrid
 import com.example.calculator.HomeScreen.component.DisplayResult
@@ -20,8 +17,7 @@ import org.koin.androidx.compose.koinViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalculatorView(
-    viewModel: NumberViewModel = koinViewModel(),
-    paddingValues: PaddingValues
+    viewModel: NumberViewModel = koinViewModel()
 ) {
 
     val state: CalculatorState by viewModel.state.collectAsState()
