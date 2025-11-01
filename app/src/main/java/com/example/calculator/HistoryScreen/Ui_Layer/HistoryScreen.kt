@@ -16,24 +16,27 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.calculator.HistoryScreen.domain.HistoryViewModel
 import com.example.calculator.HistoryScreen.component.HistoryItem
+import com.example.calculator.HistoryScreen.domain.HistoryEvent
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HistoryScreen(viewModel: HistoryViewModel = koinViewModel(), navHost : NavHostController) {
+fun HistoryScreen(viewModel: HistoryViewModel = koinViewModel(), NavController: NavHostController , initial_Expression : String) {
     val state by viewModel.historyUiState.collectAsStateWithLifecycle()
     Scaffold() { PaddingValues ->
         LazyColumn(modifier = Modifier.padding(PaddingValues)) {
-            items(items = state.historyList){ item ->
+            items(items = state.historyList) { item ->
                 HistoryItem(
                     item,
-                    onDelete = TODO(),
-                    onStateUpdate = TODO()
+                    onDelete = {},
+                    onStateUpdate = {
+                        NavController.navigate(item.expression)
+                    }
                 )
             }
 
         }
-    }
 
+    }
 
 
 }
@@ -43,7 +46,7 @@ fun HistoryScreen(viewModel: HistoryViewModel = koinViewModel(), navHost : NavHo
 @Composable
 private fun Pris() {
 
-    HistoryScreen(navHost = rememberNavController())
+    HistoryScreen(NavController = rememberNavController() , initial_Expression = "e")
 }
 
 

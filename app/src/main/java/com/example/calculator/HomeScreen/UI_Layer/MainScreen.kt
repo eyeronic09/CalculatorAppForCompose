@@ -27,7 +27,8 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun CalculatorView(
     viewModel: NumberViewModel = koinViewModel(),
-    navController: NavHostController
+    navController: NavHostController,
+
 ) {
 
     val state: CalculatorState by viewModel.state.collectAsState()

@@ -19,8 +19,9 @@ class HistoryViewModel (private val repository: HistoryRepository) : ViewModel()
 
     fun onEvent(event: HistoryEvent) {
         when (event) {
-            is HistoryEvent.currentHistoryUpdateToState -> TODO()
+
             is HistoryEvent.deleteHistory -> TODO()
+            is HistoryEvent.currentHistoryUpdateToState -> TODO()
         }
 
 

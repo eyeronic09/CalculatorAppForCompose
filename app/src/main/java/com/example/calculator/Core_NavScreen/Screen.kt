@@ -4,5 +4,5 @@ sealed class Screen(
     val route : String
 ){
     object Calculator_Screen: Screen(route = "CalculatorScreen")
-    object History_Screen : Screen(route = "HistoryScreen")
+    object History_Screen : Screen(route = "HistoryScreen/{expression}")
 }
