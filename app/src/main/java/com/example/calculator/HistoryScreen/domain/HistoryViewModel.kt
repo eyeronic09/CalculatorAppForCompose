@@ -6,37 +6,36 @@ import com.example.calculator.HomeScreen.Room.Repository.HistoryRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class HistoryViewModel (private val repository: HistoryRepository) : ViewModel(){
-    private val _historyState = MutableStateFlow(HistoryState())
-    val historyState : StateFlow<HistoryState> = _historyState.asStateFlow()
+class HistoryViewModel (private val repository: HistoryRepository) : ViewModel() {
+    private val _historyUiState = MutableStateFlow(HistoryState())
+    val historyUiState: StateFlow<HistoryState> = _historyUiState.asStateFlow()
 
     init {
-        fetchAllHistory()
+        loadHistory()
     }
 
-    fun onEvent(event: HistoryEvent){
-        when(event) {
+    fun onEvent(event: HistoryEvent) {
+        when (event) {
             is HistoryEvent.currentHistoryUpdateToState -> TODO()
             is HistoryEvent.deleteHistory -> TODO()
         }
 
 
     }
-    private fun fetchAllHistory() {
+    fun loadHistory() {
         viewModelScope.launch {
             try {
-                _historyState.update { historyState ->
-                    historyState.copy(
-                        isLoading = true,
-                        historyList = historyState.historyList
-                    )
+               repository.getAllHistory().collect { value ->
+                    _historyUiState.update { historyState ->
+                        historyState.copy(historyList = value)
+                    }
+
                 }
-            }catch (e: Exception){
-                _historyState.value.copy(error = e.toString())
+            } catch (e: Exception) {
+                _historyUiState.update { it.copy(error = e.message) }
             }
         }
     }

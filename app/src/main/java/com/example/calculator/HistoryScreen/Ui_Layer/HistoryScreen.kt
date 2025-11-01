@@ -1,33 +1,40 @@
 package com.example.calculator.HistoryScreen.Ui_Layer
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Text
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.modifier.ModifierLocalReadScope
+import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.calculator.HistoryScreen.domain.HistoryViewModel
-import com.example.calculator.HomeScreen.Room.Model.History
-import com.example.calculator.HomeScreen.component.HistoryItem
+import com.example.calculator.HistoryScreen.component.HistoryItem
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HistoryScreen(viewModel: HistoryViewModel = koinViewModel(), navHost : NavHostController) {
-    val state by viewModel.historyState.collectAsState()
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-        items(items = state.historyList){ item ->
-            HistoryItem(item)
+    val state by viewModel.historyUiState.collectAsStateWithLifecycle()
+    Scaffold() { PaddingValues ->
+        LazyColumn(modifier = Modifier.padding(PaddingValues)) {
+            items(items = state.historyList){ item ->
+                HistoryItem(
+                    item,
+                    onDelete = TODO(),
+                    onStateUpdate = TODO()
+                )
+            }
+
         }
     }
+
+
 
 }
 

@@ -15,7 +15,7 @@ import com.example.calculator.R
     Font(resId = R.font.custom, weight = FontWeight.Normal)
 )
 // Material 3 Typography with custom font
-val Typography = Typography(
+val AppTypography = Typography(
     // Add other text styles as needed
     TextStyle(
         fontFamily = Nothing_Family,
@@ -43,5 +43,9 @@ val Typography = Typography(
         fontFamily = Nothing_Family,
         color = Color.White,
         fontSize = 30.sp
+    ),
+    displaySmall = TextStyle(
+        fontFamily = Nothing_Family,
+        fontSize = 40.sp
     )
 )
