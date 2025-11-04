@@ -1,6 +1,7 @@
 package com.example.calculator.HomeScreen.domain
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.calculator.HomeScreen.Room.Model.History
@@ -20,12 +21,30 @@ class NumberViewModel(
 
     fun onEvent(event: CalculatorEvent) {
         when (event) {
-            is CalculatorEvent.Number -> append(event.number)
-            is CalculatorEvent.Operation -> append(event.operation.operator)
-            is CalculatorEvent.Calculate -> calculate()
-            is CalculatorEvent.Delete -> clear()
-            is CalculatorEvent.droplast -> removeLast()
-            else -> Unit
+            is CalculatorEvent.SetExpression -> {
+                setExpression(event.expression)
+            }
+
+            is CalculatorEvent.Number -> {
+                append(event.number)
+            }
+
+            is CalculatorEvent.Operation -> {
+                append(event.operation.operator)
+            }
+
+            is CalculatorEvent.Calculate -> {
+                calculate()
+            }
+
+            is CalculatorEvent.Delete -> {
+                clear()
+            }
+
+            is CalculatorEvent.Droplast -> {
+                removeLast()
+            }
+
         }
     }
 
@@ -35,7 +54,7 @@ class NumberViewModel(
         }
     }
 
-    private  fun calculate() {
+    private fun calculate() {
         _state.update { current ->
             try {
                 val value = Keval.eval(mathExpression = current.expression)
@@ -47,15 +66,13 @@ class NumberViewModel(
                                 result = value.toString()
                             )
                         )
-                        Log.d("ContactViewModel", "Database operation completed.")
                     }
 
                 }
 
 
-
             } catch (e: Exception) {
-                current.copy(result = "Error")
+                current.copy(result = "Error $e")
             }
 
         }
@@ -71,5 +88,11 @@ class NumberViewModel(
 
     private fun clear() {
         _state.update { CalculatorState() }
+    }
+
+    private fun setExpression(updateExpression: String) {
+        _state.update { state ->
+            state.copy(expression = updateExpression )
+        }
     }
 }

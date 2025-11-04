@@ -52,7 +52,7 @@ fun ButtonsGrid(
     onOperationClick: (CalculatorOperation) -> Unit,
     onEqualTo: (CalculatorEvent.Calculate) -> Unit,
     onClear: (CalculatorEvent.Delete) -> Unit,
-    onDropLast:(CalculatorEvent.droplast) -> Unit
+    onDropLast:(CalculatorEvent.Droplast) -> Unit
 ) {
     val buttons = listOf(
         "7", "8", "9", "/",
@@ -135,7 +135,7 @@ fun ButtonsGrid(
             }
             item(span = {GridItemSpan(2)}) {
                 RectangularButton(
-                    onClick = {onDropLast(CalculatorEvent.droplast)},
+                    onClick = {onDropLast(CalculatorEvent.Droplast)},
                     symbol =  "droplast",
                     modifier = Modifier.padding(8.dp)
                 )

@@ -55,8 +55,6 @@ fun DisplayResult(state: CalculatorState) {
 @Composable
 private fun DisplayResultPreview() {
     val previewState = CalculatorState(
-        number1 = "34",
-        number2 = "32",
         result = "23",
         expression = "2/43+2*32-32",
         operation = CalculatorOperation.Add

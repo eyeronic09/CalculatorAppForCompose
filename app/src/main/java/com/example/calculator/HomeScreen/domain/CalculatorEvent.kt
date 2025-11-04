@@ -3,7 +3,10 @@ package com.example.calculator.HomeScreen.domain
 sealed class CalculatorEvent {
     data class Number(val number: String) : CalculatorEvent()
 
-    object droplast : CalculatorEvent()
+    // this his from Db and just update the current display thourght
+    data class SetExpression(val expression: String) : CalculatorEvent()
+
+    object Droplast : CalculatorEvent()
     object Delete : CalculatorEvent()
 
     object Calculate : CalculatorEvent()

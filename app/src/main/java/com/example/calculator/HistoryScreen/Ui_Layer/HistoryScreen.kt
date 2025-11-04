@@ -12,15 +12,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.calculator.Core_NavScreen.Screen
 import com.example.calculator.HistoryScreen.domain.HistoryViewModel
 import com.example.calculator.HistoryScreen.component.HistoryItem
 import com.example.calculator.HistoryScreen.domain.HistoryEvent
 import org.koin.androidx.compose.koinViewModel
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 @Composable
-fun HistoryScreen(viewModel: HistoryViewModel = koinViewModel(), NavController: NavHostController , initial_Expression : String) {
+fun HistoryScreen(viewModel: HistoryViewModel = koinViewModel(), NavController: NavHostController ) {
     val state by viewModel.historyUiState.collectAsStateWithLifecycle()
     Scaffold() { PaddingValues ->
         LazyColumn(modifier = Modifier.padding(PaddingValues)) {
@@ -29,8 +33,13 @@ fun HistoryScreen(viewModel: HistoryViewModel = koinViewModel(), NavController: 
                     item,
                     onDelete = {},
                     onStateUpdate = {
-                        NavController.navigate(item.expression)
-                    }
+                        //URL encoded the expression to  handel slashes DO NOT TOUCH IT !!!
+                        val encodedExpression = URLEncoder.encode(item.expression ,
+                             StandardCharsets.UTF_8)
+
+                        // passed that same shit from above
+                        NavController.navigate(Screen.Calculator_Screen.CreateRoute(encodedExpression))
+                    },
                 )
             }
 
@@ -46,7 +55,7 @@ fun HistoryScreen(viewModel: HistoryViewModel = koinViewModel(), NavController: 
 @Composable
 private fun Pris() {
 
-    HistoryScreen(NavController = rememberNavController() , initial_Expression = "e")
+    HistoryScreen(NavController = rememberNavController() )
 }
 
 

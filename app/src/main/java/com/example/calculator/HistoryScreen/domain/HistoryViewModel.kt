@@ -2,6 +2,7 @@ package com.example.calculator.HistoryScreen.domain
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.Navigation
 import com.example.calculator.HomeScreen.Room.Repository.HistoryRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,7 +22,6 @@ class HistoryViewModel (private val repository: HistoryRepository) : ViewModel()
         when (event) {
 
             is HistoryEvent.deleteHistory -> TODO()
-            is HistoryEvent.currentHistoryUpdateToState -> TODO()
         }
 
 
@@ -33,11 +33,11 @@ class HistoryViewModel (private val repository: HistoryRepository) : ViewModel()
                     _historyUiState.update { historyState ->
                         historyState.copy(historyList = value)
                     }
-
                 }
             } catch (e: Exception) {
                 _historyUiState.update { it.copy(error = e.message) }
             }
         }
     }
+
 }

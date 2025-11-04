@@ -44,22 +44,29 @@ fun AppNavHost() {
         navController = navController,
         startDestination = Screen.Calculator_Screen.route
     ) {
-        composable(Screen.Calculator_Screen.route,
-           ){
+        composable(
+            route = Screen.Calculator_Screen.route,
+            arguments = listOf(
+                navArgument("expression") {
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = ""
+                }
+            )
+        ) { backStackEntry ->
+            val expression = backStackEntry.arguments?.getString("expression") ?: ""
             CalculatorView(
-                navController = navController
+                navController = navController,
+                expression = expression
             )
         }
+
         composable (
             Screen.History_Screen.route,
-            arguments = listOf(navArgument("expression"){type = NavType.StringType})
-            ) { backStackEntry ->
-            val exp = backStackEntry.arguments?.getString("expression") ?: ""
-            HistoryScreen(
-               NavController = navController,
-                initial_Expression = exp
-            )
+            ) {
+             HistoryScreen(
+                 NavController = navController
+             )
         }
     }
-
 }
