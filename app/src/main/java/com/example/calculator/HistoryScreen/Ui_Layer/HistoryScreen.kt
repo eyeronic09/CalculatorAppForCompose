@@ -44,7 +44,12 @@ fun HistoryScreen(viewModel: HistoryViewModel = koinViewModel(), NavController: 
                              StandardCharsets.UTF_8)
 
                         // passed that same shit from above
-                        NavController.navigate(Screen.Calculator_Screen.CreateRoute(encodedExpression))
+                        NavController.navigate(Screen.Calculator_Screen.CreateRoute(encodedExpression)){
+                            popUpTo(Screen.Calculator_Screen.route) {
+                                inclusive = false
+                            }
+                            launchSingleTop = true
+                        }
                     },
                 )
             }
