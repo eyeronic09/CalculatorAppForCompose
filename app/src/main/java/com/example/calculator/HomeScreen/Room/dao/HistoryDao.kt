@@ -1,6 +1,7 @@
 package com.example.calculator.HomeScreen.Room.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.calculator.HomeScreen.Room.Model.History
@@ -17,6 +18,7 @@ interface HistoryDao {
     @Insert
     fun insterExperssion(expression : History)
 
-
+    @Delete
+    fun delete(expression: History)
 
 }

@@ -9,4 +9,6 @@ interface HistoryRepository {
 
     suspend fun interExpression(expression: History)
 
+    suspend fun Delete(expression: History)
+
 }

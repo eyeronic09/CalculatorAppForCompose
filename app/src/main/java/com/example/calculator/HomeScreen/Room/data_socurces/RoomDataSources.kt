@@ -13,4 +13,8 @@ class RoomDataSources(private val dao : HistoryDao) : HistorySources {
         return dao.insterExperssion(expression)
     }
 
+    override suspend fun Delete(expression: History) {
+        return dao.delete(expression)
+    }
+
 }

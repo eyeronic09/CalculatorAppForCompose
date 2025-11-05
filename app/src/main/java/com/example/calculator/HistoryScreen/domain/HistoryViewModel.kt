@@ -3,7 +3,10 @@ package com.example.calculator.HistoryScreen.domain
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
+import com.example.calculator.HomeScreen.Room.Model.History
 import com.example.calculator.HomeScreen.Room.Repository.HistoryRepository
+import com.example.calculator.HomeScreen.domain.CalculatorEvent
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,8 +23,7 @@ class HistoryViewModel (private val repository: HistoryRepository) : ViewModel()
 
     fun onEvent(event: HistoryEvent) {
         when (event) {
-
-            is HistoryEvent.deleteHistory -> TODO()
+            is HistoryEvent.deleteHistory -> delete(event.expression)
         }
 
 
@@ -40,4 +42,9 @@ class HistoryViewModel (private val repository: HistoryRepository) : ViewModel()
         }
     }
 
+    fun delete(expression: History) {
+        viewModelScope.launch(context = Dispatchers.IO) {
+            repository.Delete(expression)
+        }
+    }
 }

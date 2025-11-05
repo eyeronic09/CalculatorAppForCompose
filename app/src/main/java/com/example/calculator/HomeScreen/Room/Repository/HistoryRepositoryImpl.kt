@@ -13,4 +13,8 @@ class HistoryRepositoryImpl (private val dataSources: HistorySources ) : History
     override suspend fun interExpression(expression: History) {
         return dataSources.insertExpression(expression)
     }
+
+    override suspend fun Delete(expression: History) {
+        return dataSources.Delete(expression)
+    }
 }
